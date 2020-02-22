@@ -16,7 +16,7 @@ class Helpers
 		die;
 	}
 
-	public static function sanitize() {
-
+	public static function sanitize($dirtyValue) {
+		return htmlentities($dirtyValue, ENT_QUOTES, 'UTF-8');
 	}
 }
