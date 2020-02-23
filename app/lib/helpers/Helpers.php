@@ -34,4 +34,16 @@ class Helpers
 		ini_set('display_startup_errors', 1);
 		error_reporting(E_ALL);
 	}
+
+	public static function postedValues($post) {
+		if(!is_array($post) || empty($post)) {
+			return [];
+		}
+		$cleanArray = [];
+		foreach ($post as $key => $value) {
+			$cleanArray[$key] = self::sanitize($value);
+		}
+		return $cleanArray;
+
+	}
 }
