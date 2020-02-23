@@ -8,38 +8,55 @@
 
 class Router
 {
-    public static function route($url)
-    {
+	public static function route($url) {
 
-        //controller
-        $controller = DEFAULT_CONTROLLER;
-        if (isset($url[0]) && $url[0] != '') {
-            $controller = ucwords($url[0]);
-            array_shift($url);
-        }
-        $controller_name = $controller;
+		//controller
+		$controller = DEFAULT_CONTROLLER;
+		if(isset($url[0]) && $url[0] != '') {
+			$controller = ucwords($url[0]);
+			array_shift($url);
+		}
+		$controller_name = $controller;
 
-        //action
-        $action = 'indexAction';
-        if (isset($url[0]) && $url[0] != '') {
-            $action = ucwords($url[0] . 'Action');
-            array_shift($url);
-        }
+		//action
+		$action = 'indexAction';
+		if(isset($url[0]) && $url[0] != '') {
+			$action = ucwords($url[0] . 'Action');
+			array_shift($url);
+		}
 
-        //params
-        $queryParams = $url;
+		//params
+		$queryParams = $url;
 
-        if (class_exists($controller)) {
-            $dispatch = new $controller($controller_name, $action);
-        } else {
-            die(var_dump('Class "' . $controller . '" does not exist'));
-        }
+		if(class_exists($controller)) {
+			$dispatch = new $controller($controller_name, $action);
+		}
+		else {
+			die(var_dump('Class "' . $controller . '" does not exist'));
+		}
 
 
-        if (method_exists($controller, $action)) {
-            call_user_func_array([$dispatch, $action], $queryParams);
-        } else {
-            die(var_dump('That method does not exist in the controller \"' . $controller_name . '\"'));
-        }
-    }
+		if(method_exists($controller, $action)) {
+			call_user_func_array([$dispatch, $action], $queryParams);
+		}
+		else {
+			die(var_dump('That method does not exist in the controller \"' . $controller_name . '\"')
+			);
+		}
+	}
+
+	public static function redirect($location) {
+		if(!headers_sent()) {
+			header('Location:' . PROOT . $location);
+			exit();
+		}
+		else {
+			echo '
+				<script type="text/javascript">
+				window.location.href="' . PROOT . $location . '"
+				</script>';
+			echo '<noscript><meta http-equiv="refresh" content="0;url=' . $location . '" </noscript>';
+			exit();
+		}
+	}
 }
