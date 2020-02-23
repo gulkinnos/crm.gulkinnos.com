@@ -17,12 +17,14 @@ class DB
 	/**
 	 * DB constructor.
 	 */
-	private function __construct()
-	{
+	private function __construct() {
 
 		try {
-			$this->_pdo = new PDO('mysql:host=' . DB_HOST . ';dbname='
-				. DB_NAME, DB_USER, DB_PASSWORD);
+			$this->_pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
+			if($this->debugMode) {
+				$this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$this->_pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+			}
 		} catch (PDOException $e) {
 			die($e->getMessage());
 		}
@@ -32,8 +34,7 @@ class DB
 	/**
 	 * @return DB|null
 	 */
-	public static function getInstance()
-	{
+	public static function getInstance() {
 		if(is_null(self::$_instance)) {
 			self::$_instance = new self();
 		}
@@ -50,8 +51,7 @@ class DB
 	 *
 	 * @param bool $on
 	 */
-	public function setDebugMode($on = false)
-	{
+	public function setDebugMode($on = false) {
 		/* To switch ON debug mode call
 		 $db->setDebugMode(1);
 		 before use any method
@@ -68,8 +68,7 @@ class DB
 	 *
 	 * @return $this
 	 */
-	public function query($sql, $params = [])
-	{
+	public function query($sql, $params = []) {
 		$this->_error = false;
 
 		if($this->_query = $this->_pdo->prepare($sql)) {
@@ -111,8 +110,7 @@ class DB
 	 *
 	 * @return string The interpolated query
 	 */
-	public static function interpolateQuery($query, $params)
-	{
+	public static function interpolateQuery($query, $params) {
 		$keys = array();
 
 		# build a regular expression for each parameter
@@ -138,8 +136,7 @@ class DB
 	 *
 	 * @return bool
 	 */
-	protected function _read($table, $params = [])
-	{
+	protected function _read($table, $params = []) {
 		$conditionString = '';
 
 		$bind  = [];
@@ -185,13 +182,7 @@ class DB
 		$sql = "SELECT * FROM {$table} {$conditionString}{$order}{$limit}";
 
 		if($this->query($sql, $bind)) {
-			if(!$this->count($this->_result)) {
-				return false;
-			}
-			else {
-				return true;
-			}
-
+			return (bool)$this->count();
 		}
 		return false;
 
@@ -204,16 +195,14 @@ class DB
 	 * @return bool|mixed
 	 *
 	 */
-	public function find($table, $params = [])
-	{
+	public function find($table, $params = []) {
 		if($this->_read($table, $params)) {
 			return $this->results();
 		}
 		return false;
 	}
 
-	public function findFirst($table, $params = [])
-	{
+	public function findFirst($table, $params = []) {
 		if($this->_read($table, $params)) {
 			return $this->first();
 		}
@@ -226,8 +215,7 @@ class DB
 	 *
 	 * @return bool
 	 */
-	public function insert($table, $fields = [])
-	{
+	public function insert($table, $fields = []) {
 		$fieldString = '';
 		$valueString = '';
 		$values      = [];
@@ -260,8 +248,7 @@ class DB
 	 *
 	 * @return bool
 	 */
-	public function update($table, $id, $fields = [])
-	{
+	public function update($table, $id, $fields = []) {
 		$fieldString = '';
 		$values      = [];
 		if(is_array($fields) && count($fields)) {
@@ -294,8 +281,7 @@ class DB
 	 *
 	 * @return bool
 	 */
-	public function delete($table, $id)
-	{
+	public function delete($table, $id) {
 		if(is_numeric($id) && (int)$id > 0) {
 			$id = (int)$id;
 		}
@@ -308,37 +294,34 @@ class DB
 		if(!$this->query($sql)->error()) {
 			return true;
 		}
+		return false;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function results()
-	{
+	public function results() {
 		return $this->_result;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function first()
-	{
+	public function first() {
 		return (!empty($this->_result)) ? $this->_result[0] : [];
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function count()
-	{
+	public function count() {
 		return $this->_count;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function lastID()
-	{
+	public function lastID() {
 		return $this->_lastInsertID;
 	}
 
@@ -347,16 +330,14 @@ class DB
 	 *
 	 * @return mixed
 	 */
-	public function get_columns($table)
-	{
+	public function get_columns($table) {
 		return $this->query("SHOW COLUMNS FROM {$table}")->results();
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function error()
-	{
+	public function error() {
 		return $this->_error;
 	}
 }
