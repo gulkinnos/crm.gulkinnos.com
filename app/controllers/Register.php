@@ -55,4 +55,69 @@ class Register extends Controller
 	}
 
 
+	public function registerAction() {
+		$validation   = new Validate();
+		$postedValues = [
+			'fname'    => '',
+			'lastname' => '',
+			'username' => '',
+			'email'    => '',
+			'password' => '',
+			'confirm'  => '',
+		];
+
+		if($_POST) {
+			$postedValues = Helpers::postedValues($_POST);
+			$validation->check($postedValues, [
+					'fname'    => [
+						'display'  => 'First Name',
+						'required' => true,
+
+					],
+					'lastname' => [
+						'display'  => 'Last Name',
+						'required' => true,
+					],
+					'username' => [
+						'display'  => 'Username',
+						'required' => true,
+						'unique'   => 'users',
+						'min'      => 6,
+						'max'      => 150,
+					],
+					'email'    => [
+						'display'     => 'Email',
+						'required'    => true,
+						'unique'      => 'users',
+						'max'         => 150,
+						'valid_email' => true,
+					],
+					'password' => [
+						'display'  => 'Password',
+						'required' => true,
+						'min'      => 6,
+						'max'      => 150,
+					],
+					'confirm'  => [
+						'display'  => 'Confirm password',
+						'required' => true,
+						'matches'  => 'password'
+					],
+				]
+			);
+
+			if($validation->passed()) {
+				$newUser = new Users();
+				$newUser->registerNewUser($postedValues);
+				$newUser->login();
+				Router::redirect('register/login');
+			}
+		}
+
+
+		$this->view->post          = $postedValues;
+		$this->view->displayErrors = $validation->displayErrors();
+		$this->view->render('register/register');
+	}
+
 }
