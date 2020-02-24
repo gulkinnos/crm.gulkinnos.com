@@ -114,4 +114,66 @@ class Router
 
 		return $grantAccess;
 	}
+
+	public static function getMenu(string $menu)
+	{
+		$menuArray = [];
+		$menuFile  = file_get_contents(ROOT . DS . 'app' . DS . $menu . '.json');
+		if (!$menuFile) {
+			return $menuArray;
+		}
+		else {
+
+			$acl = json_decode($menuFile, true);
+
+			//@TODO: Rewrite to recursion.
+			foreach ($acl as $key => $value) {
+				if (is_array($value)) {
+					$sub = [];
+					foreach ($value as $k => $val) {
+						if ($k == 'separator' && !empty($sub)) {
+							$sub[$k] = '';
+							continue;
+						}
+						else {
+							if ($finalVal = self::getLink($val)) {
+								$sub[$k] = $finalVal;
+							}
+						}
+					}
+					if (!empty($sub)) {
+						$menuArray[$key] = $sub;
+					}
+				}
+				elseif ($finalVal = self::getLink($value)) {
+					$menuArray[$key] = $finalVal;
+				}
+			}
+		}
+
+		Helpers::vd($menuArray);
+
+		return $menuArray;
+
+	}
+
+	private static function getLink($value)
+	{
+
+
+		if(!empty($value)){
+			if(preg_match('/https?:\/\//',$value) == 1){
+				return $value;
+			}else{
+				$uArray = explode(DS, $value);
+				$controllerName = ucwords($uArray[0]);
+				$actionName = (isset($uArray[1])? $uArray[1]: '');
+				if (self::hasAccess($controllerName, $actionName)){
+					return PROOT.$value;
+				}
+			}
+		}else{
+			return '';
+		}
+	}
 }
