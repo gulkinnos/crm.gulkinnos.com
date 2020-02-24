@@ -96,4 +96,11 @@ class Users extends Model
 		return true;
 
 	}
+
+	public function registerNewUser($params) {
+		$this->assign($params);
+		$this->password = password_hash($this->password, PASSWORD_DEFAULT);
+		$this->deleted  = 0;
+		$this->save();
+	}
 }

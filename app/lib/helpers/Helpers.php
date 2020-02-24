@@ -6,32 +6,9 @@
  * Time: 7:28 PM
  */
 
-class Helpers
-{
-
-	public static function dnd($data) {
-		echo '<pre>';
-		var_dump($data);
-		echo '</pre>';
-		die;
-	}
-
-	public static function sanitize($dirtyValue) {
-		return htmlentities($dirtyValue, ENT_QUOTES, 'UTF-8');
-	}
-
-	public static function currentUser() {
-		if(!is_null(Users::currentLoggedInUser())) {
-			return Users::currentLoggedInUser();
-		}
-		else {
-			return new DataModel();
-		}
-	}
-
-	public static function turnOnErrorReporting() {
-		ini_set('display_errors', 1);
-		ini_set('display_startup_errors', 1);
-		error_reporting(E_ALL);
-	}
+function dnd($data){
+    echo '<pre>';
+    var_dump($data);
+    echo '</pre>';
+    die;
 }
