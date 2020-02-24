@@ -16,6 +16,13 @@ class Helpers
 		die;
 	}
 
+	public static function vd($data = null)
+	{
+		echo '<pre>';
+		var_dump($data);
+		echo '</pre>';
+	}
+
 	public static function sanitize($dirtyValue) {
 		return htmlentities($dirtyValue, ENT_QUOTES, 'UTF-8');
 	}
