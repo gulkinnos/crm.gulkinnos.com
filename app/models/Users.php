@@ -103,4 +103,13 @@ class Users extends Model
 		$this->deleted  = 0;
 		$this->save();
 	}
+
+
+	public function acls(){
+		if(empty($this->acl)){
+			return [];
+		}else{
+			return json_decode($this->acl, true);
+		}
+	}
 }

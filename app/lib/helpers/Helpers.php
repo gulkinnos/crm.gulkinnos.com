@@ -27,6 +27,9 @@ class Helpers
 		return htmlentities($dirtyValue, ENT_QUOTES, 'UTF-8');
 	}
 
+	/**
+	 * @return DataModel|null|Users
+	 */
 	public static function currentUser() {
 		if(!is_null(Users::currentLoggedInUser())) {
 			return Users::currentLoggedInUser();
