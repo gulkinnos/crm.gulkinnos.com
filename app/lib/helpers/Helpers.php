@@ -16,10 +16,20 @@ class Helpers
 		die;
 	}
 
+	public static function vd($data = null)
+	{
+		echo '<pre>';
+		var_dump($data);
+		echo '</pre>';
+	}
+
 	public static function sanitize($dirtyValue) {
 		return htmlentities($dirtyValue, ENT_QUOTES, 'UTF-8');
 	}
 
+	/**
+	 * @return DataModel|null|Users
+	 */
 	public static function currentUser() {
 		if(!is_null(Users::currentLoggedInUser())) {
 			return Users::currentLoggedInUser();
@@ -46,4 +56,6 @@ class Helpers
 		return $cleanArray;
 
 	}
+
+
 }
