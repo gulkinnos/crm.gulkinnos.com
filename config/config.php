@@ -14,6 +14,7 @@ define('DEFAULT_CONTROLLER', 'Home'); //default controller if there isn`t one de
 define('DEFAULT_LAYOUT', 'default'); //If no layout is set in the controller use this layout
 
 define('PROOT', '/'); //set this to '/' for a life server.
+define('MENU_BRAND', 'GN Menu'); //set this to '/' for a life server.
 
 define('SITE_TITLE', 'Gulkinnos MVC Framework'); // This will be used if no site title is set
 

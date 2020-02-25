@@ -151,8 +151,6 @@ class Router
 			}
 		}
 
-		Helpers::vd($menuArray);
-
 		return $menuArray;
 
 	}

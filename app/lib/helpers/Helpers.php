@@ -57,5 +57,13 @@ class Helpers
 
 	}
 
+	public static function currentPage() {
+		$currentPage = $_SERVER["REQUEST_URI"];
+		if ($currentPage === PROOT || $currentPage === PROOT . 'home/index') {
+			$currentPage = PROOT;
+		}
+		return $currentPage;
+	}
+
 
 }

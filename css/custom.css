@@ -1,0 +1,7 @@
+.dropdown.active, .dropdown:active,
+.nav-item.active, .nav-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #d5d6d7;
+}
+
