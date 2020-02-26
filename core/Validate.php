@@ -115,7 +115,11 @@ class Validate
 	}
 
 	public function displayErrors() {
-		$html = '<ul class="bg-danger">';
+		if(empty($this->_errors)){
+			return '';
+		}
+
+		$html = '<ul class="alert-danger">';
 		foreach ($this->_errors as $error) {
 			if(is_array($error)) {
 

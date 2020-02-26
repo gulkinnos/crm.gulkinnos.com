@@ -3,7 +3,9 @@
 <?php $this->start('body') ?>
     <div class="col-md-6 col-md-offset-3 well">
         <form action="<?= PROOT ?>register/login" class="form" method="post">
-            <div class="bg-danger"><?= $this->displayErrors ?></div>
+            <?php if($this->displayErrors): ?>
+            <div class="alert alert-danger"><?= $this->displayErrors ?></div>
+            <?php endif;?>
             <h3 class="text-center">Login</h3>
             <div class="form-group">
                 <label for="username">Username</label>
