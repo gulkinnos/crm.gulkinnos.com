@@ -101,7 +101,9 @@ class Users extends Model
 		$this->assign($params);
 		$this->password = password_hash($this->password, PASSWORD_DEFAULT);
 		$this->deleted  = 0;
-		$this->save();
+		if($this->save()){
+			$this->id = $this->_db->lastID();
+		}
 	}
 
 
