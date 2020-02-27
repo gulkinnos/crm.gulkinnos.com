@@ -7,3 +7,4 @@
  */
 
 require_once(ROOT . DS . 'app' . DS . 'lib' . DS . 'helpers' . DS . 'Helpers.php');
+require_once(ROOT . DS . 'app' . DS . 'lib' . DS . 'helpers' . DS . 'FormHelpers.php');
