@@ -7,6 +7,15 @@
 
 class FormHelpers
 {
+	/**
+	 * @param string $type
+	 * @param string $label
+	 * @param string $name
+	 * @param string $value
+	 * @param array $inputAttributes
+	 * @param array $divAttributes
+	 * @return string
+	 */
 	public static function inputBlock($type, $label, $name, $value = '', $inputAttributes = [], $divAttributes = [])
 	{
 		$divString   = self::stringifyAttributes($divAttributes);
@@ -19,7 +28,11 @@ class FormHelpers
 		return $html;
 	}
 
-
+	/**
+	 * @param string $buttonText
+	 * @param array $inputAttributes
+	 * @return string
+	 */
 	public static function submitTag($buttonText, $inputAttributes = [])
 	{
 
@@ -29,6 +42,12 @@ class FormHelpers
 
 	}
 
+	/**
+	 * @param string $buttonText
+	 * @param array $inputAttributes
+	 * @param array $divAttributes
+	 * @return string
+	 */
 	public static function submitBlock($buttonText, $inputAttributes = [], $divAttributes = [])
 	{
 		$divString = self::stringifyAttributes($divAttributes);
@@ -41,6 +60,10 @@ class FormHelpers
 
 	}
 
+	/**
+	 * @param array $attributes
+	 * @return string
+	 */
 	public static function stringifyAttributes(array $attributes)
 	{
 		$string = '';
