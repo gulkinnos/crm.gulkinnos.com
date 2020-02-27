@@ -6,7 +6,7 @@
  * Date: 5/22/2018
  * Time: 3:02 PM
  */
-class Home extends Controller
+class HomeController extends Controller
 {
 
     public function __construct($controller, $action)

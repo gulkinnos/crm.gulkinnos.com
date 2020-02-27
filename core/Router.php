@@ -14,10 +14,10 @@ class Router
 		//controller
 		$controller = DEFAULT_CONTROLLER;
 		if (isset($url[0]) && $url[0] != '') {
-			$controller = ucwords($url[0]);
+			$controller = ucwords($url[0]) . 'Controller';
 			array_shift($url);
 		}
-		$controller_name = $controller;
+		$controller_name = str_replace('Controller', '', $controller);
 
 		//action
 		$action      = 'indexAction';
@@ -32,7 +32,8 @@ class Router
 		$grantAccess = self::hasAccess($controller_name, $action_name);
 
 		if (!$grantAccess) {
-			$controller_name = $controller = ACCESS_RESTRICTED;
+			$controller      = ACCESS_RESTRICTED;
+			$controller_name = str_replace('Controller', '', $controller);
 			$action          = 'indexAction';
 		}
 
@@ -159,18 +160,20 @@ class Router
 	{
 
 
-		if(!empty($value)){
-			if(preg_match('/https?:\/\//',$value) == 1){
+		if (!empty($value)) {
+			if (preg_match('/https?:\/\//', $value) == 1) {
 				return $value;
-			}else{
-				$uArray = explode(DS, $value);
+			}
+			else {
+				$uArray         = explode(DS, $value);
 				$controllerName = ucwords($uArray[0]);
-				$actionName = (isset($uArray[1])? $uArray[1]: '');
-				if (self::hasAccess($controllerName, $actionName)){
-					return PROOT.$value;
+				$actionName     = (isset($uArray[1]) ? $uArray[1] : '');
+				if (self::hasAccess($controllerName, $actionName)) {
+					return PROOT . $value;
 				}
 			}
-		}else{
+		}
+		else {
 			return '';
 		}
 	}
