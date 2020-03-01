@@ -8,6 +8,7 @@
 	<!-- Bootstrap -->
 	<link href="<?= PROOT ?>css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?= PROOT ?>css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="<?= PROOT ?>js/jquery-3.2.1.min.js"></script>
 	<script src="<?= PROOT ?>js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
