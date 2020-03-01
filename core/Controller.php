@@ -12,7 +12,8 @@ class Controller extends Application
 
     public $view;
 
-    public function __construct($controller, $action)
+
+	public function __construct($controller, $action)
     {
         parent::__construct();
         $this->_controller = $controller;
