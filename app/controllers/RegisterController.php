@@ -26,7 +26,8 @@ class RegisterController extends Controller
 						'required' => true
 					]
 
-				]
+				],
+				true
 			);
 			if($validation->passed()) {
 				$user = $this->UsersModel->findByUsername($_POST['username']);
@@ -103,7 +104,8 @@ class RegisterController extends Controller
 						'required' => true,
 						'matches'  => 'password'
 					],
-				]
+				],
+				true
 			);
 
 			if($validation->passed()) {

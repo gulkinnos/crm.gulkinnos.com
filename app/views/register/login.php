@@ -30,6 +30,7 @@
                 <input type="submit" value="Login"
                        class="btn btn-large btn-primary">
             </div>
+            <?=FormHelpers::csrfInput()?>
         </form>
         <div class="text-right">
             <a href="<?= PROOT ?>register/register" class="text-primary">Register</a>

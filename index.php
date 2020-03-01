@@ -35,5 +35,4 @@ if(!Session::exists(CURRENT_USER_SESSION_NAME) && Cookie::exists(REMEMBER_ME_COO
 
 
 //Route the request
-
 Router::route($url);
