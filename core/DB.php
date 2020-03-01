@@ -65,10 +65,11 @@ class DB
 	/**
 	 * @param string $sql
 	 * @param array  $params
+	 * @param string|bool $class
 	 *
 	 * @return $this
 	 */
-	public function query($sql, $params = []) {
+	public function query($sql, $params = [], $class = false) {
 		$this->_error = false;
 
 		if($this->_query = $this->_pdo->prepare($sql)) {
@@ -81,7 +82,6 @@ class DB
 			}
 		}
 
-
 		//show SQL statement, if debug mode ON
 		if($this->debugMode === true) {
 			var_dump($sql);
@@ -90,7 +90,12 @@ class DB
 		}
 
 		if($this->_query->execute()) {
-			$this->_result       = $this->_query->fetchAll(PDO::FETCH_OBJ);
+			if($class) {
+				$this->_result = $this->_query->fetchAll(PDO::FETCH_CLASS, $class);
+			}
+			else {
+				$this->_result = $this->_query->fetchAll(PDO::FETCH_OBJ);
+			}
 			$this->_count        = $this->_query->rowCount();
 			$this->_lastInsertID = $this->_pdo->lastInsertId();
 		}
@@ -131,12 +136,13 @@ class DB
 	}
 
 	/**
-	 * @param string $table
-	 * @param array  $params
+	 * @param             $table
+	 * @param array       $params
+	 * @param string|bool $class
 	 *
 	 * @return bool
 	 */
-	protected function _read($table, $params = []) {
+	protected function _read($table, $params = [], $class = false) {
 		$conditionString = '';
 
 		$bind  = [];
@@ -181,7 +187,7 @@ class DB
 
 		$sql = "SELECT * FROM {$table} {$conditionString}{$order}{$limit}";
 
-		if($this->query($sql, $bind)) {
+		if($this->query($sql, $bind, $class)) {
 			return (bool)$this->count();
 		}
 		return false;
@@ -191,19 +197,26 @@ class DB
 	/**
 	 * @param string $table
 	 * @param array  $params
-	 *
+     * @param string|bool $class
 	 * @return bool|mixed
 	 *
 	 */
-	public function find($table, $params = []) {
-		if($this->_read($table, $params)) {
+	public function find($table, $params = [], $class = false) {
+		if($this->_read($table, $params, $class)) {
 			return $this->results();
 		}
 		return false;
 	}
 
-	public function findFirst($table, $params = []) {
-		if($this->_read($table, $params)) {
+	/**
+	 * @param string      $table
+	 * @param array       $params
+	 * @param string|bool $class
+	 *
+	 * @return bool|mixed
+	 */
+	public function findFirst($table, $params = [], $class = false) {
+		if($this->_read($table, $params, $class)) {
 			return $this->first();
 		}
 		return false;

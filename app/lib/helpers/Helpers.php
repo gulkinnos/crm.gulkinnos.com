@@ -11,9 +11,7 @@ class Helpers
 
 	public static function dnd($data) {
 		echo '<pre>';
-		var_dump($data);
-		echo '</pre>';
-		die;
+		die(var_dump($data));
 	}
 
 	public static function vd($data = null)
@@ -65,5 +63,7 @@ class Helpers
 		return $currentPage;
 	}
 
-
+	public static function getObjectProperties($object){
+		return get_object_vars($object);
+	}
 }

@@ -7,30 +7,17 @@ class Model
 	protected $_table;
 	protected $_modelName;
 	protected $_softDelete  = false;
-	protected $_columnNames = [];
 
 	public $id;
 
 	public function __construct($table) {
 		$this->_db    = DB::getInstance();
 		$this->_table = $table;
-		$this->setTableColumns();
 
 		// 'table_name' >>> 'TableName'
 		$this->_modelName = str_replace(' ', '', ucwords(str_replace('_', ' ', $this->_table))
 		);
 
-	}
-
-	protected function setTableColumns() {
-		$columns = $this->getColumns();
-		if(is_array($columns) && !empty($columns)) {
-			foreach ($columns as $column) {
-				$columnName           = $column->Field;
-				$this->_columnNames[] = $column->Field;
-				$this->{$columnName}  = null;
-			}
-		}
 	}
 
 	public function getColumns() {
@@ -61,30 +48,19 @@ class Model
 	}
 
 	public function find($params = []) {
-		$params = $this->_softDeleteParams($params);
-		$results      = [];
-		$resultsQuery = $this->_db->find($this->_table, $params);
+		$params       = $this->_softDeleteParams($params);
+		$resultsQuery = $this->_db->find($this->_table, $params, get_class($this));
 		if(is_array($resultsQuery) && !empty($resultsQuery)) {
-			foreach ($resultsQuery as $result) {
-				$obj = new $this->_modelName($this->_table);
-				$obj->populateObjData($result);
-				$results[] = $obj;
-			}
+			return $resultsQuery;
 		}
-		return $results;
-
+		else {
+			return [];
+		}
 	}
 
 	public function findFirst($params = []) {
 		$params = $this->_softDeleteParams($params);
-		$resultQuery = $this->_db->findFirst($this->_table, $params);
-		$result      = new $this->_modelName($this->_table);
-		if($resultQuery) {
-			$result->populateObjData($resultQuery);
-		}else{
-			return false;
-		}
-		return $result;
+		return $this->_db->findFirst($this->_table, $params, get_class($this));
 	}
 
 	public function findById($id) {
@@ -93,10 +69,7 @@ class Model
 
 
 	public function save() {
-		$fields = [];
-		foreach ($this->_columnNames as $column) {
-			$fields[$column] = $this->$column;
-		}
+		$fields = Helpers::getObjectProperties($this);
 
 		if(array_key_exists('deleted',$fields) && is_null($fields['deleted'])){
 			$fields['deleted'] = 0;
@@ -149,10 +122,10 @@ class Model
 
 	public function data() {
 		$data = new DataModel();
-		foreach ($this->_columnNames as $column) {
+		foreach (Helpers::getObjectProperties($this) as $column => $value) {
 
 			//not sure. maybe $data->$column???
-			$data->$column = $this->$column;
+			$data->$column = $value;
 		}
 
 		return $data;
@@ -161,7 +134,7 @@ class Model
 	public function assign($params) {
 		if(!empty($params)) {
 			foreach ($params as $key => $value) {
-				if(in_array($key, $this->_columnNames)) {
+				if(property_exists($this, $key)) {
 					$this->$key = Helpers::sanitize($value);
 				}
 			}

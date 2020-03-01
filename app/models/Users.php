@@ -3,7 +3,16 @@
 
 class Users extends Model
 {
-	private       $_isLoggedIn; //unused yet
+
+	public $id;
+	public $username;
+	public $email;
+	public $password;
+	public $fname;
+	public $lname;
+	public $acl;
+	public $deleted = 0;
+
 	private       $_sessionName;
 	private       $_cookieName;
 	public static $currentLoggedInUser = null;
@@ -15,18 +24,18 @@ class Users extends Model
 		$this->_sessionName = CURRENT_USER_SESSION_NAME;
 		$this->_cookieName  = REMEMBER_ME_COOKIE_NAME;
 		$this->_softDelete  = true;
-		if(is_numeric($user)) {
-			$u = $this->_db->findFirst('users', ['conditions' => 'id =?', 'bind' => [$user]]
-			);
-		}
-		else {
-			$u = $this->_db->findFirst('users', ['conditions' => 'username =?', 'bind' => [$user]]
-			);
-		}
+		if(!empty($user)) {
+			if(is_numeric($user)) {
+				$u = $this->_db->findFirst('users', ['conditions' => 'id =?', 'bind' => [$user], 'Users']);
+			}
+			else {
+				$u = $this->_db->findFirst('users', ['conditions' => 'username =?', 'bind' => [$user], 'Users']);
+			}
 
-		if($u && !empty($u)) {
-			foreach ($u as $key => $value) {
-				$this->$key = $value;
+			if($u && !empty($u)) {
+				foreach ($u as $key => $value) {
+					$this->$key = $value;
+				}
 			}
 		}
 	}
@@ -101,16 +110,17 @@ class Users extends Model
 		$this->assign($params);
 		$this->password = password_hash($this->password, PASSWORD_DEFAULT);
 		$this->deleted  = 0;
-		if($this->save()){
+		if($this->save()) {
 			$this->id = $this->_db->lastID();
 		}
 	}
 
 
-	public function acls(){
-		if(empty($this->acl)){
+	public function acls() {
+		if(empty($this->acl)) {
 			return [];
-		}else{
+		}
+		else {
 			return json_decode($this->acl, true);
 		}
 	}

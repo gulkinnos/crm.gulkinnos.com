@@ -3,8 +3,25 @@
 
 class Contacts extends Model
 {
-	public static $addValidation =
-		[
+
+	public $id;
+	public $user_id;
+	public $fname;
+	public $lname;
+	public $address;
+	public $address2;
+	public $city;
+	public $state;
+	public $zip;
+	public $email;
+	public $cell_phone;
+	public $home_phone;
+	public $work_phone;
+	public $deleted = 0;
+
+
+	public static $addValidation
+		= [
 			'fname' => [
 				'display'  => "First Name",
 				'required' => true,
