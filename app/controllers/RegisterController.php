@@ -68,7 +68,7 @@ class RegisterController extends Controller
 		];
 
 		if($_POST) {
-			$postedValues = Helpers::postedValues($_POST);
+			$postedValues = FormHelpers::postedValues($_POST);
 			$validation->check($postedValues, [
 					'fname'    => [
 						'display'  => 'First Name',

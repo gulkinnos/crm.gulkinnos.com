@@ -135,7 +135,7 @@ class Model
 		if(!empty($params)) {
 			foreach ($params as $key => $value) {
 				if(property_exists($this, $key)) {
-					$this->$key = Helpers::sanitize($value);
+					$this->$key = FormHelpers::sanitize($value);
 				}
 			}
 			return true;

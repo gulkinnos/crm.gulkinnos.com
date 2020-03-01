@@ -21,10 +21,6 @@ class Helpers
 		echo '</pre>';
 	}
 
-	public static function sanitize($dirtyValue) {
-		return htmlentities($dirtyValue, ENT_QUOTES, 'UTF-8');
-	}
-
 	public static function turnErrorReportingOn() {
 		ini_set('display_errors', 1);
 		ini_set('display_startup_errors', 1);
@@ -36,19 +32,6 @@ class Helpers
 		error_reporting(0);
 	}
 
-
-
-	public static function postedValues($post) {
-		if(!is_array($post) || empty($post)) {
-			return [];
-		}
-		$cleanArray = [];
-		foreach ($post as $key => $value) {
-			$cleanArray[$key] = self::sanitize($value);
-		}
-		return $cleanArray;
-
-	}
 
 	public static function currentPage() {
 		$currentPage = $_SERVER["REQUEST_URI"];
