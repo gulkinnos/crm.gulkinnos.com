@@ -119,7 +119,7 @@ class Model
 	}
 
 	public function update($id, $fields = []) {
-		if(empty($fields) || !is_int($id) || empty($id)) {
+		if(empty($fields) || !is_numeric($id) || empty($id)) {
 			return false;
 		}
 		return $this->_db->update($this->_table, $id, $fields);
