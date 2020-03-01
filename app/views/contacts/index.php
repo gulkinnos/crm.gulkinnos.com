@@ -4,7 +4,7 @@
 ?>
 <?php $this->start('body'); ?>
 <h2 class="text-center">My contacts</h2>
-<table class="table-striped table-condensed table-bordered">
+<table class="table table-striped table-condensed table-bordered">
     <thead>
     <th>Name</th>
     <th>Email</th>
@@ -16,7 +16,10 @@
     <tbody>
 	<?php foreach ($this->contacts as $contact): ?>
         <tr>
-            <td><?= $contact->displayName() ?></td>
+            <td><a href="<?=PROOT?>contacts/details/<?=$contact->id?>">
+                <?= $contact->displayName() ?>
+                </a>
+            </td>
             <td><?= $contact->email ?></td>
             <td><?= $contact->cell_phone ?></td>
             <td><?= $contact->home_phone ?></td>
