@@ -47,14 +47,14 @@ class Model
 		if ($this->_softDelete) {
 			if (array_key_exists('conditions', $params)) {
 				if (!is_array($params)) {
-					$params['conditions'][] = "deleted != 1 or deleted IS NULL";
+					$params['conditions'][] = " (deleted != 1 or deleted IS NULL)";
 				}
 				else {
-					$params['conditions'] .= 'AND deleted != 1 or deleted IS NULL';
+					$params['conditions'] .= ' AND (deleted != 1 or deleted IS NULL)';
 				}
 			}
 			else {
-				$params['conditions'] = "deleted != 1 or deleted IS NULL";
+				$params['conditions'] = " (deleted != 1 or deleted IS NULL)";
 			}
 		}
 		return $params;
@@ -81,6 +81,8 @@ class Model
 		$result      = new $this->_modelName($this->_table);
 		if($resultQuery) {
 			$result->populateObjData($resultQuery);
+		}else{
+			return false;
 		}
 		return $result;
 	}
