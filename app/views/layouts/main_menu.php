@@ -45,9 +45,9 @@ $currentPage = Helpers::currentPage();
 				</li>
 			<?php endif; ?>
 			<?php endforeach; ?>
-			<?php if (Helpers::currentUser()): ?>
+			<?php if (Users::currentUser()): ?>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Hello <?= Helpers::currentUser()->data()->fname ?></a>
+					<a class="nav-link" href="#">Hello <?= Users::currentUser()->data()->fname ?></a>
 				</li>
 			<?php endif; ?>
 		</ul>

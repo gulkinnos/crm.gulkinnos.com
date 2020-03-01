@@ -86,7 +86,7 @@ class Router
 
 		if (Session::exists(CURRENT_USER_SESSION_NAME)) {
 			$currentUserACLs[] = "LoggedIn";
-			if (!empty($savedACLs = Helpers::currentUser()->acls())) {
+			if (!empty($savedACLs = Users::currentUser()->acls())) {
 				foreach ($savedACLs as $key => $value) {
 					$currentUserACLs[] = $value;
 				}

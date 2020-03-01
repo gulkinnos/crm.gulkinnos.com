@@ -18,10 +18,10 @@ class Validate
 		}
 
 		foreach ($items as $item => $rules) {
-			$item    = Input::sanitize($item);
+			$item    = Helpers::sanitize($item);
 			$display = $rules['display'];
 			foreach ($rules as $rule => $ruleValue) {
-				$value = Input::sanitize(trim($source[$item]));
+				$value = Helpers::sanitize(trim($source[$item]));
 
 				if($rule === 'required' && empty($value)) {
 					$this->addError(["{$display} is required", $item]);

@@ -40,15 +40,15 @@ class Users extends Model
 		}
 	}
 
-	public static function currentLoggedInUser() {
+	public static function currentUser() {
 		if(is_null(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)) {
 			self::$currentLoggedInUser = new Users((int)Session::get(CURRENT_USER_SESSION_NAME));
 		}
 
 		//@TODO
 		/**
-		 * Helpers::currentUser()->data()->username throws an error
-		 * if Helpers::currentUser() is null
+		 * Users::currentUser()->data()->username throws an error
+		 * if Users::currentUser() is null
 		 * Fatal error:  Uncaught Error: Call to a member function data() on null
 		 *
 		 * Implement logic which will return NULL value.

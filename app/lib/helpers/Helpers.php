@@ -25,23 +25,18 @@ class Helpers
 		return htmlentities($dirtyValue, ENT_QUOTES, 'UTF-8');
 	}
 
-	/**
-	 * @return DataModel|null|Users
-	 */
-	public static function currentUser() {
-		if(!is_null(Users::currentLoggedInUser())) {
-			return Users::currentLoggedInUser();
-		}
-		else {
-			return new DataModel();
-		}
-	}
-
-	public static function turnOnErrorReporting() {
+	public static function turnErrorReportingOn() {
 		ini_set('display_errors', 1);
 		ini_set('display_startup_errors', 1);
 		error_reporting(E_ALL);
 	}
+	public static function turnErrorReportingOff() {
+		ini_set('display_errors', 0);
+		ini_set('display_startup_errors', 0);
+		error_reporting(0);
+	}
+
+
 
 	public static function postedValues($post) {
 		if(!is_array($post) || empty($post)) {
