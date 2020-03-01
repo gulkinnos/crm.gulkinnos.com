@@ -119,7 +119,7 @@ class Validate
 			return '';
 		}
 
-		$html = '<ul class="alert-danger">';
+		$html = '<ul class="alert-danger form-errors">';
 		foreach ($this->_errors as $error) {
 			if(is_array($error)) {
 
