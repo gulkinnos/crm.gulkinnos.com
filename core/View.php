@@ -73,4 +73,19 @@ class View
     {
         $this->_layout = $path;
     }
+
+	/**
+	 * @param string $path
+	 */
+	public function insert( $path) {
+		include ROOT . DS . 'app' . DS . 'views' . DS . $path . '.php';
+	}
+
+	/**
+	 * @param string $group - directory name
+	 * @param string $partial - partial name
+	 */
+	public function partial($group, $partial) {
+		include ROOT . DS . 'app' . DS . 'views' . DS . $group . DS . 'partials'. DS  . $partial . '.php';
+	}
 }
