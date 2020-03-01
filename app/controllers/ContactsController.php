@@ -37,10 +37,20 @@ class ContactsController extends Controller
 				Router::redirect('contacts');
 			}
 		}
-		$this->view->contact = $contact;
+		$this->view->contact       = $contact;
 		$this->view->displayErrors = $validation->displayErrors();
 		$this->view->postAction    = PROOT . 'contacts' . DS . 'add';
 		$this->view->render('contacts/add');
+	}
+
+	public function detailsAction($id) {
+		$contact = $this->ContactsModel->findByIdAndUserId((int)$id, Helpers::currentUser()->id);
+
+		if(!$contact) {
+			Router::redirect('contacts');
+		}
+		$this->view->contact = $contact;
+		$this->view->render('contacts/details');
 	}
 
 }
