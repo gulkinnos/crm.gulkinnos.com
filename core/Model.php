@@ -47,14 +47,14 @@ class Model
 		if ($this->_softDelete) {
 			if (array_key_exists('conditions', $params)) {
 				if (!is_array($params)) {
-					$params['conditions'][] = "deleted != 1";
+					$params['conditions'][] = "deleted != 1 or deleted IS NULL";
 				}
 				else {
-					$params['conditions'] .= 'AND deleted != 1';
+					$params['conditions'] .= 'AND deleted != 1 or deleted IS NULL';
 				}
 			}
 			else {
-				$params['conditions'] = "deleted != 1";
+				$params['conditions'] = "deleted != 1 or deleted IS NULL";
 			}
 		}
 		return $params;
@@ -94,6 +94,10 @@ class Model
 		$fields = [];
 		foreach ($this->_columnNames as $column) {
 			$fields[$column] = $this->$column;
+		}
+
+		if(array_key_exists('deleted',$fields) && is_null($fields['deleted'])){
+			$fields['deleted'] = 0;
 		}
 
 		// Determine whether to update or insert
