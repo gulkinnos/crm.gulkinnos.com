@@ -7,6 +7,8 @@ class Model
 	protected $_table;
 	protected $_modelName;
 	protected $_softDelete  = false;
+	protected $_validates = true;
+	protected $_validationErrors = [];
 
 	public $id;
 
@@ -69,18 +71,24 @@ class Model
 
 
 	public function save() {
-		$fields = Helpers::getObjectProperties($this);
+		$this->validator();
+		if($this->_validates) {
+			$fields = Helpers::getObjectProperties($this);
 
-		if(array_key_exists('deleted',$fields) && is_null($fields['deleted'])){
-			$fields['deleted'] = 0;
-		}
+			if(array_key_exists('deleted', $fields) && is_null($fields['deleted'])) {
+				$fields['deleted'] = 0;
+			}
 
-		// Determine whether to update or insert
-		if(property_exists($this, 'id') && !empty($this->id)) {
-			return $this->update($this->id, $fields);
+			// Determine whether to update or insert
+			if(property_exists($this, 'id') && !empty($this->id)) {
+				return $this->update($this->id, $fields);
+			}
+			else {
+				return $this->insert($fields);
+			}
 		}
 		else {
-			return $this->insert($fields);
+			return false;
 		}
 	}
 
@@ -152,4 +160,31 @@ class Model
 		}
 	}
 
+	public function validator() { }
+
+	/**
+	 * !!!!!!!!!!!!!!!!!V!!!!!!!!!!!!
+	 * @param CustomValidator $validator
+	 */
+
+	public function runValidation($validator) {
+		$key = $validator->field;
+		if(!$validator->success()) {
+			$this->_validates              = false;
+			$this->_validationErrors[$key] = $validator->msg;
+		}
+	}
+
+	public function getErrorMessages() {
+		return $this->_validationErrors;
+	}
+
+	public function validationPassed() {
+		return $this->_validates;
+	}
+
+	public function addErrorMessage($field, $msg) {
+		$this->_validates                = false;
+		$this->_validationErrors[$field] = $msg;
+	}
 }

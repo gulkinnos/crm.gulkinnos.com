@@ -40,6 +40,13 @@ class Users extends Model
 		}
 	}
 
+	public function validator() {
+		$this->runValidation(new MinValidator($this,
+				['field' => 'username', 'rule' => 6, 'msg' => 'Username must be at least 6 characters.']
+			)
+		);
+	}
+
 	public static function currentUser() {
 		if(is_null(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)) {
 			self::$currentLoggedInUser = new Users((int)Session::get(CURRENT_USER_SESSION_NAME));
@@ -124,4 +131,6 @@ class Users extends Model
 			return json_decode($this->acl, true);
 		}
 	}
+
+
 }
