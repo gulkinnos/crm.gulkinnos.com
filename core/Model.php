@@ -35,7 +35,7 @@ class Model
 	{
 		if ($this->_softDelete) {
 			if (array_key_exists('conditions', $params)) {
-				if (!is_array($params)) {
+				if (is_array($params['conditions'])) {
 					$params['conditions'][] = " (deleted != 1 or deleted IS NULL)";
 				}
 				else {
@@ -78,6 +78,7 @@ class Model
 			if(array_key_exists('deleted', $fields) && is_null($fields['deleted'])) {
 				$fields['deleted'] = 0;
 			}
+
 
 			// Determine whether to update or insert
 			if(property_exists($this, 'id') && !empty($this->id)) {
@@ -169,7 +170,7 @@ class Model
 
 	public function runValidation($validator) {
 		$key = $validator->field;
-		if(!$validator->success()) {
+		if(!$validator->success) {
 			$this->_validates              = false;
 			$this->_validationErrors[$key] = $validator->msg;
 		}
@@ -186,5 +187,9 @@ class Model
 	public function addErrorMessage($field, $msg) {
 		$this->_validates                = false;
 		$this->_validationErrors[$field] = $msg;
+	}
+
+	public function getLastInsertID(){
+		return $this->_db->lastID();
 	}
 }

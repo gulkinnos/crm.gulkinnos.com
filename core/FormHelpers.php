@@ -105,4 +105,28 @@ class FormHelpers
 		return $cleanArray;
 
 	}
+
+	public static function displayErrors($errors) {
+		if(empty($errors)){
+			return '';
+		}
+
+		$html = '<div class="form-errors"><ul class="alert-danger">';
+		foreach ($errors as $field => $error) {
+			$html .= '<li class="text-danger">' . $error . '</li>';
+			$html .= '
+					<script>
+					jQuery("document").ready(function() {
+						jQuery("#' . $field . '")
+							.parent()
+							.closest("div")
+							.addClass("has-error");
+					})
+					</script>';
+		}
+
+		$html .= '</ul></div>';
+		return $html;
+
+	}
 }

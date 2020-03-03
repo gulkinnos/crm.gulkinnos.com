@@ -57,68 +57,22 @@ class RegisterController extends Controller
 
 
 	public function registerAction() {
-		$validation   = new Validate();
-		$postedValues = [
-			'fname'    => '',
-			'lastname' => '',
-			'username' => '',
-			'email'    => '',
-			'password' => '',
-			'confirm'  => '',
-		];
+		$newUser = new Users();
 
-		if($_POST) {
-			$postedValues = FormHelpers::postedValues($_POST);
-			$validation->check($postedValues, [
-					'fname'    => [
-						'display'  => 'First Name',
-						'required' => true,
-
-					],
-					'lastname' => [
-						'display'  => 'Last Name',
-						'required' => true,
-					],
-					'username' => [
-						'display'  => 'Username',
-						'required' => true,
-						'unique'   => 'users',
-						'min'      => 6,
-						'max'      => 150,
-					],
-					'email'    => [
-						'display'     => 'Email',
-						'required'    => true,
-						'unique'      => 'users',
-						'max'         => 150,
-						'valid_email' => true,
-					],
-					'password' => [
-						'display'  => 'Password',
-						'required' => true,
-						'min'      => 6,
-						'max'      => 150,
-					],
-					'confirm'  => [
-						'display'  => 'Confirm password',
-						'required' => true,
-						'matches'  => 'password'
-					],
-				],
-				true
-			);
-
-			if($validation->passed()) {
-				$newUser = new Users();
-				$newUser->registerNewUser($postedValues);
+		if ($_POST) {
+			$newUser->assign($_POST);
+			if (isset($_POST['confirm'])) {
+				$newUser->setConfirm(Input::get('confirm'));
+			}
+			if ($newUser->save()) {
+				$newUser->id = $newUser->getLastInsertID();
 				$newUser->login();
-				Router::redirect('register/login');
+				Router::redirect('');
 			}
 		}
 
-
-		$this->view->post          = $postedValues;
-		$this->view->displayErrors = $validation->displayErrors();
+		$this->view->newUser       = $newUser;
+		$this->view->displayErrors = $newUser->getErrorMessages();
 		$this->view->render('register/register');
 	}
 
