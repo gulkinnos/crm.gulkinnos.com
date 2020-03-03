@@ -11,7 +11,7 @@ class DB
 	private static $_instance = null;
 
 	private $_pdo, $_query, $_error = false, $_result, $_count = 0, $_lastInsertID = null;
-
+	private $_errorInfo = '';
 	private $debugMode = false;
 
 	/**
@@ -101,6 +101,7 @@ class DB
 		}
 		else {
 			$this->_error = true;
+			$this->_errorInfo = $this->_query->errorInfo();
 		}
 		return $this;
 	}
@@ -353,4 +354,13 @@ class DB
 	public function error() {
 		return $this->_error;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getErrorInfo()
+	{
+		return $this->_errorInfo;
+	}
+
 }
