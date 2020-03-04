@@ -132,6 +132,17 @@ class FormHelpers
 
 		$html .= '</ul></div>';
 		return $html;
+	}
 
+	public static function checkboxBlock($label, $name, $checked = false, $inputAttrs = [], $divAttrs = []) {
+		$divString   = self::stringifyAttributes($divAttrs);
+		$inputString = self::stringifyAttributes($inputAttrs);
+		$checkString = ($checked) ? ' checked="checked"' : '';
+
+		$html = '<div' . $divString . '>';
+		$html .= '<label for="' . $name . '">' . $label . ' <input type="checkbox" id="' . $name . '" name="' . $name
+			. '" value="on"' . $checkString . $inputString . '></label>';
+		$html .= '</div>';
+		return $html;
 	}
 }
