@@ -1,6 +1,8 @@
 <?php
-
-
+/**
+ * @abstract
+ *
+ */
 abstract class CustomValidator
 {
 	public $success = true;

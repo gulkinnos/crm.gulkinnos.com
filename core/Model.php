@@ -140,18 +140,22 @@ class Model
 		return $data;
 	}
 
+	/**
+	 * @param array $params
+	 *
+	 * @return bool
+	 */
 	public function assign($params) {
 		if(!empty($params)) {
 			foreach ($params as $key => $value) {
 				if(property_exists($this, $key)) {
-					$this->$key = FormHelpers::sanitize($value);
+					$this->$key = $value;
 				}
 			}
 			return true;
 		}
 		return false;
 	}
-
 
 	protected function populateObjData($result) {
 		if(is_object($result) && !empty($result)) {
@@ -164,10 +168,8 @@ class Model
 	public function validator() { }
 
 	/**
-	 * !!!!!!!!!!!!!!!!!V!!!!!!!!!!!!
 	 * @param CustomValidator $validator
 	 */
-
 	public function runValidation($validator) {
 		$key = $validator->field;
 		if(!$validator->success) {
