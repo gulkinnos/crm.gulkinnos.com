@@ -42,6 +42,10 @@ class Users extends Model
 		}
 	}
 
+	protected function beforeSave() {
+		$this->password = password_hash($this->password, PASSWORD_DEFAULT);
+	}
+
 	public function validator() {
 		$this->runValidation(new RequiredValidator($this,['field'=>'fname','msg'=>'First Name is required.']));
 		$this->runValidation(new RequiredValidator($this,['field'=>'lname','msg'=>'Last Name is required.']));
@@ -121,16 +125,6 @@ class Users extends Model
 		return true;
 
 	}
-
-	public function registerNewUser($params) {
-		$this->assign($params);
-		$this->password = password_hash($this->password, PASSWORD_DEFAULT);
-		$this->deleted  = 0;
-		if($this->save()) {
-			$this->id = $this->_db->lastID();
-		}
-	}
-
 
 	public function acls() {
 		if(empty($this->acl)) {

@@ -22,6 +22,10 @@ class Model
 
 	}
 
+	protected function beforeSave(){}
+
+	protected function afterSave() {}
+
 	public function getColumns() {
 		return $this->_db->get_columns($this->_table);
 	}
@@ -73,20 +77,23 @@ class Model
 	public function save() {
 		$this->validator();
 		if($this->_validates) {
+			$this->beforeSave();
 			$fields = Helpers::getObjectProperties($this);
 
 			if(array_key_exists('deleted', $fields) && is_null($fields['deleted'])) {
 				$fields['deleted'] = 0;
 			}
 
-
 			// Determine whether to update or insert
 			if(property_exists($this, 'id') && !empty($this->id)) {
-				return $this->update($this->id, $fields);
+				$saved = $this->update($this->id, $fields);
 			}
 			else {
-				return $this->insert($fields);
+				$saved = $this->insert($fields);
 			}
+
+			$this->afterSave();
+			return $saved;
 		}
 		else {
 			return false;
