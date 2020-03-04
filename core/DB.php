@@ -21,6 +21,8 @@ class DB
 
 		try {
 			$this->_pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
+			$setSQL = 'SET NAMES utf8 COLLATE utf8_general_ci';
+			$this->_pdo->query($setSQL);
 			if($this->debugMode) {
 				$this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				$this->_pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
