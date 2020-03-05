@@ -33,4 +33,20 @@ class Controller extends Application
 		}
 	}
 
+	/**
+	 * @abstract
+	 */
+	public function indexAction(){}
+
+	/**
+	 * @param array $response
+	 */
+	public function jsonResponse($response){
+		header("Access-Control-Allow-Origin: *");
+		header("Content-Type: application/json; charset=UTF-8");
+		http_response_code(200);
+		echo json_encode($response);
+		exit;
+	}
+
 }
