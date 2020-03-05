@@ -202,4 +202,8 @@ class Model
 	public function getLastInsertID(){
 		return $this->_db->lastID();
 	}
+
+	public function isNew(){
+		return (property_exists($this, 'id') && !empty($this->id));
+	}
 }
