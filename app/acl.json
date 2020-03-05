@@ -10,7 +10,8 @@
     ],
     "Restricted": [
       "*"
-    ]
+    ],
+    "Examples": ["*"]
   },
   "LoggedIn": {
     "denied": {
@@ -24,6 +25,7 @@
     ],
     "Contacts": [
       "*"
-    ]
+    ],
+    "Examples": ["*"]
   }
 }
