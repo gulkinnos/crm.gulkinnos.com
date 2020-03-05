@@ -11,12 +11,9 @@ class ContactsController extends Controller
 	}
 
 	public function indexAction() {
-
-		/**
-		 * Declaring datatype to help IDE figure out with suggestions.
+		/**Declaring datatype to help IDE figure out with suggestions.
 		 *
-		 * @var Contacts $contactsModel
-		 */
+		 * @var Contacts $contactsModel */
 		$contactsModel = new $this->ContactsModel;
 		$contacts      = $contactsModel->findAllByUserId(Users::currentUser()->id, ['order' => 'lname, fname']);
 
@@ -57,6 +54,7 @@ class ContactsController extends Controller
 		$contact = $this->ContactsModel->findByIdAndUserId((int)$id, Users::currentUser()->id);
 		if($contact) {
 			$contact->delete();
+			Session::addMessage('success', 'Contact has been deleted successfully.');
 		}
 		Router::redirect('contacts');
 	}

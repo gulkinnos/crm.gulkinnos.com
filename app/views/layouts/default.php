@@ -19,6 +19,7 @@
 <div class="container-fluid" style="min-height: calc(100% - 125px);">
 
 </div>
+<?= Session::displayMessage() ?>
 <?= $this->content('body') ?>
 </body>
 </html>
