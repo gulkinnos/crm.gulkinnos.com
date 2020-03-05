@@ -3,7 +3,7 @@
 use FormHelpers as FH;
 ?>
 <form class="form" action="<?= $this->postAction ?>" method="post">
-    <?= $this->displayErrors;?>
+    <?= FH::displayErrors($this->displayErrors);?>
     <div class="row">
         <?= FH::inputBlock('text', 'First Name', 'fname', $this->contact->fname, ['class' => 'form-control'],
             ['class' => 'form-group col-md-6']); ?>
