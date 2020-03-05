@@ -1,5 +1,6 @@
 <?php
-
+namespace Core;
+use stdClass;
 
 class DataModel
 {

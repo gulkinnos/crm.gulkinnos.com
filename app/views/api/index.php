@@ -13,5 +13,4 @@
 	</h4>
 </div>
 
-<?php var_dump($foo)?>
 <?php $this->end() ?>

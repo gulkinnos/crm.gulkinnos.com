@@ -5,6 +5,9 @@
  * Date: 3/3/20
  * Time: 12:12 PM
  */
+namespace Core\Validators;
+use Core\Validators\CustomValidator;
+
 
 class MaxValidator extends CustomValidator
 {

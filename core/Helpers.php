@@ -5,7 +5,7 @@
  * Date: 5/20/2018
  * Time: 7:28 PM
  */
-
+namespace Core;
 class Helpers
 {
 

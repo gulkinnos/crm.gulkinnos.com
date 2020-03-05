@@ -5,6 +5,9 @@
  * Date: 6/14/2018
  * Time: 4:40 PM
  */
+namespace App\Controllers;
+use Core\Controller;
+use Core\DB;
 
 class Samples extends Controller
 {

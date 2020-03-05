@@ -5,6 +5,7 @@
  * Date: 5/22/2018
  * Time: 2:44 PM
  */
+namespace Core;
 
 class View
 {

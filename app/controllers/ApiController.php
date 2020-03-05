@@ -5,6 +5,8 @@
  * Date: 2/18/20
  * Time: 10:07 AM
  */
+namespace App\Controllers;
+use Core\Controller;
 
 class ApiController extends Controller
 {

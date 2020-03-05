@@ -1,4 +1,8 @@
 <?php
+namespace Core;
+use Core\FormHelpers;
+use Core\Helpers;
+use Core\Router;
 
 
 class Input

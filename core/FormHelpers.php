@@ -4,6 +4,8 @@
  * User: aleksandrgolubev
  * Date: 2/27/20
  */
+namespace Core;
+use Core\Session;
 
 class FormHelpers
 {

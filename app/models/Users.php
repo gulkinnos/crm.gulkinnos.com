@@ -1,5 +1,12 @@
 <?php
-
+namespace App\Models;
+use Core\Cookie;
+use Core\Model;
+use Core\Session;
+use Core\Validators\EmailValidator;
+use Core\Validators\MaxValidator;
+use Core\Validators\MinValidator;
+use Core\Validators\RequiredValidator;
 
 class Users extends Model
 {
@@ -62,7 +69,7 @@ class Users extends Model
 
 	public static function currentUser() {
 		if(is_null(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)) {
-			self::$currentLoggedInUser = new Users((int)Session::get(CURRENT_USER_SESSION_NAME));
+			self::$currentLoggedInUser = new self((int)Session::get(CURRENT_USER_SESSION_NAME));
 		}
 
 		//@TODO

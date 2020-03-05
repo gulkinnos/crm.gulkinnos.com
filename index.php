@@ -1,27 +1,25 @@
 <?php
+use Core\Session;
+use Core\Cookie;
+use Core\Router;
+use App\Models\Users;
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__FILE__));
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 // load configuration and helper functions
 require_once(ROOT . DS . 'config' . DS . 'config.php');
 
 //Autoload classes
 function autoload($className) {
-	if(file_exists(ROOT . DS . 'core' . DS . $className . '.php')) {
-		require_once(ROOT . DS . 'core' . DS . $className . '.php');
-	}
-	elseif(file_exists(ROOT . DS . 'app' . DS . 'controllers' . DS . $className . '.php')) {
-		require_once(ROOT . DS . 'app' . DS . 'controllers' . DS . $className . '.php');
-	}
-	elseif(file_exists(ROOT . DS . 'app' . DS . 'models' . DS . $className . '.php')) {
-		require_once(ROOT . DS . 'app' . DS . 'models' . DS . $className . '.php');
-	}
-	elseif(file_exists(ROOT . DS . 'app' . DS . 'custom_validators' . DS . $className . '.php')) {
-		require_once(ROOT . DS . 'app' . DS . 'custom_validators' . DS . $className . '.php');
-	}
-	elseif(file_exists(ROOT . DS . 'core' . DS . 'validators' . DS . $className . '.php')) {
-		require_once(ROOT . DS . 'core' . DS . 'validators' . DS . $className . '.php');
+	$classArray = explode('\\', $className);
+	$class   = array_pop($classArray);
+	$subPath = strtolower(implode(DS, $classArray));
+	$path    = ROOT . DS . $subPath . DS . $class . '.php';
+	if(file_exists($path)) {
+		require_once($path);
 	}
 }
 

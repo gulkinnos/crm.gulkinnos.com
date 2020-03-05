@@ -1,6 +1,5 @@
 <?php
-
-use FormHelpers as FH;
+use Core\FormHelpers as FH;
 ?>
 <form class="form" action="<?= $this->postAction ?>" method="post">
     <?= FH::displayErrors($this->displayErrors);?>
@@ -36,7 +35,7 @@ use FormHelpers as FH;
         <?= FH::inputBlock('text', 'Work Phone', 'work_phone', $this->contact->work_phone, ['class' => 'form-control'],
             ['class' => 'form-group col-md-6']); ?>
     </div>'
-    <?=FormHelpers::csrfInput()?>
+    <?=FH::csrfInput()?>
     <div class="row">
         <div class="col-md-12 text-right">
             <a href="<?= PROOT ?>contacts" class="btn btn-default">Cancel</a>

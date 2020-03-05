@@ -5,6 +5,8 @@
  * Date: 3/3/20
  * Time: 12:17 PM
  */
+namespace Core\Validators;
+use Core\Validators\CustomValidator;
 
 class EmailValidator extends CustomValidator
 {

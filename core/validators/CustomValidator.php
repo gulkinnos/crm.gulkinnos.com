@@ -1,4 +1,7 @@
 <?php
+namespace Core\Validators;
+use Exception;
+
 /**
  * @abstract
  *

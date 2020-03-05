@@ -5,6 +5,8 @@
  * Date: 2/24/20
  * Time: 10:17 AM
  */
+namespace App\Controllers;
+use Core\Controller;
 
 class RestrictedController extends Controller
 {

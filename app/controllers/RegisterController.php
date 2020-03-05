@@ -1,5 +1,9 @@
 <?php
-
+namespace App\Controllers;
+use Core\Controller;
+use Core\Router;
+use App\Models\Login;
+use App\Models\Users;
 
 class RegisterController extends Controller
 {

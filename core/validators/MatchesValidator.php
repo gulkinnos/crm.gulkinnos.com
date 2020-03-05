@@ -5,6 +5,8 @@
  * Date: 3/3/20
  * Time: 12:16 PM
  */
+namespace Core\Validators;
+use Core\Validators\CustomValidator;
 
 class MatchesValidator extends CustomValidator
 {

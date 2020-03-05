@@ -5,6 +5,7 @@
  * Date: 5/20/2018
  * Time: 9:11 PM
  */
+namespace Core;
 
 class Application
 {

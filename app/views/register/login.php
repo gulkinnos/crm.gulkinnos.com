@@ -1,3 +1,4 @@
+<?php use Core\FormHelpers; ?>
 <?php $this->start('head') ?>
 <?php $this->end() ?>
 <?php $this->start('body') ?>

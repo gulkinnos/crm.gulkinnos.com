@@ -1,4 +1,6 @@
 <?php
+namespace App\Controllers;
+use Core\Controller;
 
 /**
  * Created by PhpStorm.
@@ -16,10 +18,6 @@ class HomeController extends Controller
 
     public function indexAction()
     {
-
-        //$db = DB::getInstance();
-
         $this->view->render('home/index');
-
     }
 }

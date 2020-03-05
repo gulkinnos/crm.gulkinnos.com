@@ -5,6 +5,8 @@
  * Date: 3/3/20
  * Time: 12:44 PM
  */
+namespace Core\Validators;
+use Core\Validators\CustomValidator;
 
 class UniqueValidator extends CustomValidator
 {

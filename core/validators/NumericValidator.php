@@ -5,6 +5,8 @@
  * Date: 3/3/20
  * Time: 12:19 PM
  */
+namespace Core\Validators;
+use Core\Validators\CustomValidator;
 
 class NumericValidator extends CustomValidator
 {

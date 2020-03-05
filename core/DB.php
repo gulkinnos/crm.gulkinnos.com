@@ -5,6 +5,9 @@
  * Date: 5/23/2018
  * Time: 4:29 PM
  */
+namespace Core;
+use \PDO;
+use \PDOException;
 
 class DB
 {

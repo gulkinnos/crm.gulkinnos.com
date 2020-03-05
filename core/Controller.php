@@ -5,6 +5,9 @@
  * Date: 5/22/2018
  * Time: 1:28 PM
  */
+namespace Core;
+use Core\Application;
+use App\Models\Contacts;
 
 class Controller extends Application
 {
@@ -24,8 +27,9 @@ class Controller extends Application
 
 
 	protected function load_model($model) {
-    	if(class_exists($model)){
-    		$this->{$model.'Model'} = new $model();
+		$modelPath = 'App\Models\\'.$model;
+    	if(class_exists($modelPath)){
+    		$this->{$model.'Model'} = new $modelPath();
 		}
 	}
 

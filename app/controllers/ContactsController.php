@@ -1,5 +1,10 @@
 <?php
-
+namespace App\Controllers;
+use App\Models\Users;
+use Core\Controller;
+use Core\Session;
+use Core\Router;
+use App\Models\Contacts;
 
 class ContactsController extends Controller
 {
@@ -22,7 +27,7 @@ class ContactsController extends Controller
 	}
 
 	public function addAction() {
-		$contact    = new Contacts;
+		$contact    = new Contacts();
 
 		if($this->request->isPost()) {
 			$this->request->csrfCheck();

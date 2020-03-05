@@ -5,6 +5,8 @@
  * Date: 3/3/20
  * Time: 9:23 AM
  */
+namespace Core\Validators;
+use Core\Validators\CustomValidator;
 
 class MinValidator extends CustomValidator
 {

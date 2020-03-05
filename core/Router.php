@@ -5,6 +5,9 @@
  * Date: 5/20/2018
  * Time: 7:57 PM
  */
+namespace Core;
+use App\Models\Users;
+
 
 class Router
 {
@@ -39,6 +42,7 @@ class Router
 
 		//params
 		$queryParams = $url;
+		$controller = 'App\\Controllers\\'.$controller;
 
 		if (class_exists($controller)) {
 			$dispatch = new $controller($controller_name, $action);
@@ -72,7 +76,7 @@ class Router
 		}
 	}
 
-	private static function hasAccess(string $controller_name, string $action_name = 'index')
+	private static function hasAccess(string $controller_name, $action_name = 'index')
 	{
 		$acl_content = file_get_contents(ROOT . DS . 'app' . DS . 'acl.json');
 		if ($acl_content) {

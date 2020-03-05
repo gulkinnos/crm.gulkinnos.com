@@ -1,4 +1,8 @@
 <?php
+use App\Models\Users;
+use Core\Helpers;
+use Core\Router;
+
 $menu        = Router::getMenu('menu_acl');
 $currentPage = Helpers::currentPage();
 ?>
