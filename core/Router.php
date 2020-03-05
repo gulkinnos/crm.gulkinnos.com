@@ -165,7 +165,7 @@ class Router
 				return $value;
 			}
 			else {
-				$uArray         = explode(DS, $value);
+				$uArray         = explode('/', $value);
 				$controllerName = ucwords($uArray[0]);
 				$actionName     = (isset($uArray[1]) ? $uArray[1] : '');
 				if (self::hasAccess($controllerName, $actionName)) {
