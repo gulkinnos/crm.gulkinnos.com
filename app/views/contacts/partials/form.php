@@ -34,7 +34,7 @@ use Core\FormHelpers as FH;
             ['class' => 'form-group col-md-6']); ?>
         <?= FH::inputBlock('text', 'Work Phone', 'work_phone', $this->contact->work_phone, ['class' => 'form-control'],
             ['class' => 'form-group col-md-6']); ?>
-    </div>'
+    </div>
     <?=FH::csrfInput()?>
     <div class="row">
         <div class="col-md-12 text-right">
