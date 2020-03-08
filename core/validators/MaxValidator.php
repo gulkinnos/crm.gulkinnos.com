@@ -2,12 +2,9 @@
 /**
  * Created by PhpStorm.
  * User: aleksandrgolubev
- * Date: 3/3/20
- * Time: 12:12 PM
  */
-namespace Core\Validators;
-use Core\Validators\CustomValidator;
 
+namespace Core\Validators;
 
 class MaxValidator extends CustomValidator
 {

@@ -27,6 +27,10 @@ class Model
 
 	protected function afterSave() {}
 
+	/**
+	 * Gets columns array for model.
+	 * @return array
+	 */
 	public function getColumns() {
 		return $this->_db->get_columns($this->_table);
 	}
@@ -36,7 +40,7 @@ class Model
 	 * @param $params array
 	 * @return array
 	 */
-	protected function _softDeleteParams($params)
+	protected function _getSoftDeleteParams($params)
 	{
 		if ($this->_softDelete) {
 			if (array_key_exists('conditions', $params)) {
@@ -55,7 +59,7 @@ class Model
 	}
 
 	public function find($params = []) {
-		$params       = $this->_softDeleteParams($params);
+		$params       = $this->_getSoftDeleteParams($params);
 		$resultsQuery = $this->_db->find($this->_table, $params, get_class($this));
 		if(is_array($resultsQuery) && !empty($resultsQuery)) {
 			return $resultsQuery;
@@ -66,7 +70,7 @@ class Model
 	}
 
 	public function findFirst($params = []) {
-		$params = $this->_softDeleteParams($params);
+		$params = $this->_getSoftDeleteParams($params);
 		return $this->_db->findFirst($this->_table, $params, get_class($this));
 	}
 
@@ -140,8 +144,6 @@ class Model
 	public function data() {
 		$data = new DataModel();
 		foreach (Helpers::getObjectProperties($this) as $column => $value) {
-
-			//not sure. maybe $data->$column???
 			$data->$column = $value;
 		}
 

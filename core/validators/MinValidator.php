@@ -2,15 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: aleksandrgolubev
- * Date: 3/3/20
- * Time: 9:23 AM
  */
+
 namespace Core\Validators;
-use Core\Validators\CustomValidator;
 
 class MinValidator extends CustomValidator
 {
-
+	/**
+	 * @override CustomValidator::runValidation()
+	 *
+	 * @return bool
+	 */
 	public function runValidation()
 	{
 		$value = $this->_model->{$this->field};

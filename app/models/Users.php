@@ -7,6 +7,7 @@ use Core\Validators\EmailValidator;
 use Core\Validators\MaxValidator;
 use Core\Validators\MinValidator;
 use Core\Validators\RequiredValidator;
+use Core\Validators\UniqueValidator;
 
 class Users extends Model
 {

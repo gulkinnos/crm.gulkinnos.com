@@ -5,7 +5,9 @@
  * Date: 5/20/2018
  * Time: 7:57 PM
  */
+
 namespace Core;
+
 use App\Models\Users;
 
 
@@ -42,7 +44,7 @@ class Router
 
 		//params
 		$queryParams = $url;
-		$controller = 'App\\Controllers\\'.$controller;
+		$controller  = 'App\\Controllers\\' . $controller;
 
 		if (class_exists($controller)) {
 			$dispatch = new $controller($controller_name, $action);

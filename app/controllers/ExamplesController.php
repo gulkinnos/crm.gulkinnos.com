@@ -1,19 +1,25 @@
 <?php
 
 namespace App\Controllers;
+
 use Core\Controller;
+use Core\Cookie;
+use Core\Helpers;
 
 class ExamplesController extends Controller
 {
-	public function __construct($controller, $action) {
+	public function __construct($controller, $action)
+	{
 		parent::__construct($controller, $action);
 	}
 
-	public function indexAction() {
+	public function indexAction()
+	{
 		$this->view->render('examples/index');
 	}
 
-	public function testAjaxAction() {
+	public function testAjaxAction()
+	{
 		$response = [
 			'success' => true,
 			'data'    => [
