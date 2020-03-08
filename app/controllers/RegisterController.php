@@ -1,29 +1,36 @@
 <?php
+
 namespace App\Controllers;
+
 use Core\Controller;
+use Core\FormHelpers;
+use Core\Helpers;
 use Core\Router;
 use App\Models\Login;
 use App\Models\Users;
 
 class RegisterController extends Controller
 {
-	public function __construct($controller, $action) {
+	public function __construct($controller, $action)
+	{
 		parent::__construct($controller, $action);
 
 		$this->load_model('Users');
 		$this->view->setLayout('default');
 	}
 
-	public function loginAction() {
+	public function loginAction()
+	{
 		$loginModel = new Login();
-		if($this->request->isPost()) {
+		if ($this->request->isPost()) {
 			// form validation
+			$this->view->csrfToken = $this->request->get('csrf_token');
 			$this->request->csrfCheck();
 			$loginModel->assign($this->request->get());
 			$loginModel->validator();
-			if($loginModel->validationPassed()) {
+			if ($loginModel->validationPassed()) {
 				$user = $this->UsersModel->findByUsername($_POST['username']);
-				if($user && password_verify($this->request->get('password'), $user->password)) {
+				if ($user && password_verify($this->request->get('password'), $user->password)) {
 					$remember = $loginModel->getRememberMeChecked();
 					$user->login($remember);
 					Router::redirect('');
@@ -33,23 +40,29 @@ class RegisterController extends Controller
 				}
 			}
 		}
-		$this->view->login = $loginModel;
+		else {
+			$this->view->csrfToken = FormHelpers::generateToken();
+		}
+		$this->view->login         = $loginModel;
 		$this->view->displayErrors = $loginModel->getErrorMessages();
 		$this->view->render('register/login');
 	}
 
-	public function logoutAction() {
-		if(Users::currentUser()) {
+	public function logoutAction()
+	{
+		if (Users::currentUser()) {
 			Users::currentUser()->logout();
 			Router::redirect('register/login');
 		}
 	}
 
 
-	public function registerAction() {
+	public function registerAction()
+	{
 		$newUser = new Users();
 
 		if ($this->request->isPost()) {
+			$this->view->csrfToken = $this->request->get('csrf_token');
 			$this->request->csrfCheck();
 			$newUser->assign($this->request->get());
 			$newUser->setConfirm($this->request->get('confirm'));
@@ -59,6 +72,9 @@ class RegisterController extends Controller
 				$newUser->login();
 				Router::redirect('');
 			}
+		}
+		else {
+			$this->view->csrfToken = FormHelpers::generateToken();
 		}
 
 		$this->view->newUser       = $newUser;

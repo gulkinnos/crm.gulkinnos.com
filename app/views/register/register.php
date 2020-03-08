@@ -1,4 +1,4 @@
-<?php use Core\FormHelpers; ?>
+<?php use Core\FormHelpers;?>
 <?php $this->start('head') ?>
 <?php $this->end() ?>
 <?php $this->start('body') ?>
@@ -14,7 +14,7 @@
 		<?= FormHelpers::inputBlock('password','Password','password',$this->newUser->password,['class'=>'form-control input-sm'],['class'=>'form-group']) ?>
 		<?= FormHelpers::inputBlock('password','Confirm Password','confirm',$this->newUser->getConfirm(),['class'=>'form-control input-sm'],['class'=>'form-group']) ?>
 		<?= FormHelpers::submitBlock('Register',['class'=>'btn btn-primary btn-large'],['class'=>'text-right']) ?>
-		<?= FormHelpers::csrfInput()?>
+		<?= FormHelpers::csrfInput($this->csrfToken)?>
     </form>
 </div>
 <?php $this->end() ?>

@@ -11,7 +11,7 @@
 			<?= FormHelpers::inputBlock('text', 'Username', 'username', $this->login->username, ['class' => 'form-control'], ['class' => 'form-group']) ?>
 			<?= FormHelpers::inputBlock('password', 'Password', 'password', $this->login->password, ['class' => 'form-control'], ['class' => 'form-group']) ?>
 			<?= FormHelpers::checkboxBlock('Remember Me', 'remember_me', $this->login->getRememberMeChecked(), [], ['class' => 'form-group']) ?>
-			<?= FormHelpers::csrfInput() ?>
+			<?= FormHelpers::csrfInput($this->csrfToken) ?>
 			<?= FormHelpers::submitBlock('Login', ['class' => 'btn btn-large btn-primary'], ['class' => 'form-group']) ?>
         </form>
         <div class="text-right">

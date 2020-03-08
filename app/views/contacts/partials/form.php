@@ -35,7 +35,7 @@ use Core\FormHelpers as FH;
         <?= FH::inputBlock('text', 'Work Phone', 'work_phone', $this->contact->work_phone, ['class' => 'form-control'],
             ['class' => 'form-group col-md-6']); ?>
     </div>
-    <?=FH::csrfInput()?>
+    <?=FH::csrfInput($this->csrfToken)?>
     <div class="row">
         <div class="col-md-12 text-right">
             <a href="<?= PROOT ?>contacts" class="btn btn-default">Cancel</a>
